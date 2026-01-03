@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import {Toaster} from 'react-hot-toast'
+import ErrorPage from "./ErrorPage.jsx" 
 import './App.css'
 import Home from './components/Home'
 import NavBar from './components/NavBar'
@@ -14,7 +15,8 @@ const router = createBrowserRouter(
       <div>
         <NavBar />
         <Home />
-      </div>
+      </div>,
+      errorElement: <ErrorPage />,
     },
     {
       path:'/pastes',
@@ -33,7 +35,10 @@ const router = createBrowserRouter(
         <ViewPaste />
       </div>
     }
-  ]
+  ],
+  {
+    basename: "/code-saver", 
+  }
 )
 
 function App() {
