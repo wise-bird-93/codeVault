@@ -1,28 +1,49 @@
-.ViewContainer{
+/* Page wrapper */
+.viewPage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+}
+
+/* Container */
+.ViewContainer {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.Viewtitle{
-    display: flex;
-    margin-top: 10px;
-    gap: 20px;
-    #titletext{
-        width: 390px;
-        height: 30px;
-        border-radius: 10px;
-        background-color: rgb(71, 70, 70);
-    }
+/* Title input */
+.Viewtitle input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
 }
 
-.Viewtext{
-    display: flex;
-    margin-right: 200px;
-    textarea{
-        height: 500px;
-        width: 500px;
-        border-radius: 10px;
-        background-color: rgb(71, 70, 70);
-    }
+/* Code viewer */
+.Viewtext textarea {
+    width: 100%;
+    min-height: 520px;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+    font-size: 14px;
+    font-family: 'Fira Code', monospace;
+    resize: vertical;
+}
+
+/* Disabled look (subtle) */
+.Viewtitle input:disabled,
+.Viewtext textarea:disabled {
+    background-color: #f8fafc;
+    cursor: not-allowed;
 }

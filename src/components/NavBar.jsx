@@ -7,21 +7,34 @@ export default function NavBar() {
     return(
         <>
             <div className="NavContainer">
-                <div className="Navlogo">
-                    <img src={logo} alt="" />
-                    CodeVault
+                <div className="NavLeft">
+                    <div className="Navlogo">
+                        <img src={logo} alt="CodeVault logo" />
+                        <span>CodeVault</span>
+                    </div>
                 </div>
-                
-                <NavLink className={({isActive}) => 
-                    isActive ? "activebuttons" : "navbuttons"} to={"/"}>
-                    Home
-                </NavLink>
 
-                <NavLink className={({isActive}) => 
-                    isActive ? "activebuttons" : "navbuttons"} to={"/pastes"}>
-                    Codes
-                </NavLink>
+                <div className="NavLinks">
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        Home
+                    </NavLink>
+
+                    <NavLink
+                        to="/pastes"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        Codes
+                    </NavLink>
+                </div>
             </div>
+
             
         </>
     )

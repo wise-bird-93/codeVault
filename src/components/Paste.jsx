@@ -29,7 +29,7 @@ export default function Pastes() {
 
     
     return(
-        <>
+        <div className="pastesPage">
             <div className={`pastesearch ${open ? "open" : ""}`}>
                 <FaSearch className="search-icon" onClick={() => setOpen(prev => !prev)}/>
                 <input id="search" type="search" 
@@ -57,11 +57,11 @@ export default function Pastes() {
                                             {paste.content.split(" ").length > 10 ? "..." : ""}
                                         </span>
                                     </div>
-                                    <div className="pasteButtons">
-                                        <div>
+                                    <div className="pasteactions">
+                                        <div className="actionbuttons">
                                         {/* Edit */}
                                         <button>
-                                            <Link to={`/?pasteId=${paste?._id}`}>
+                                            <Link to={`/?pasteId=${paste?._id}`} className="actionBtn">
                                                 <FaEdit className="text-lg" />
                                                 
                                             </Link>
@@ -103,6 +103,6 @@ export default function Pastes() {
                     )
                 }
             </div>
-        </>
+        </div>
     )
 }

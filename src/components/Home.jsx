@@ -49,24 +49,26 @@ export default function Home() {
     
     return(
         <>
-            <div className="HomeContainer">
-                <div className="Hometitle">
-                    <input id="titletext" type="text"
-                    placeholder="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)} />
+            <div className="HomePage">
+                <div className="HomeContainer">
+                    <div className="Hometitle">
+                        <input id="titletext" type="text"
+                        placeholder="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)} />
 
-                    <button onClick={createPaste}>
-                        {
-                            pasteId ? "Update" : "Create"
-                        }
-                    </button>
-                </div>
-                <div className="Hometext">
-                    <textarea 
-                    value={value}
-                    placeholder="Code here..."
-                    onChange={(e) => setValue(e.target.value)}></textarea>
+                        <button onClick={createPaste}>
+                            {
+                                pasteId ? "Update" : "Create"
+                            }
+                        </button>
+                    </div>
+                    <div className="Hometext">
+                        <textarea 
+                        value={value}
+                        placeholder="Code here..."
+                        onChange={(e) => setValue(e.target.value)}></textarea>
+                    </div>
                 </div>
             </div>
         </>

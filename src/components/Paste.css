@@ -1,56 +1,134 @@
-.pastesearch{
+/* Page wrapper */
+.pastesPage {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    color: #e5e7eb;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: transparent;
+}
+
+/* Search bar */
+.pastesearch {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-left: 15px;
+    gap: 10px;
+    margin-bottom: 24px;
 }
+
 .search-icon {
-    cursor: pointer;
     font-size: 18px;
-    color: black;
+    color: #94a3b8;
+    cursor: pointer;
 }
+
 .pastesearch input {
     width: 0;
     opacity: 0;
     padding: 0;
-    border: none;
-    transition: all 0.3s ease;
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    transition: all 0.25s ease;
 }
+
 .pastesearch.open input {
-    width: 130px;
+    width: 200px;
     opacity: 1;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
 }
-.pastelist{
-    border: 1px solid black;
-    margin: 15px;
-    border-radius: 7px;
+
+/* Paste card */
+.pastelist {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 200px;
+    align-items: flex-start;
+    gap: 24px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.pasteTitle{
+
+.pastelist:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Title + preview */
+.pasteTitle {
+    flex: 1;
     display: flex;
-    color: black;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
+    gap: 6px;
 }
-.pasteButtons{
+
+.pasteTitle h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color:#0f172a;
+}
+
+.pasteTitle span {
+    font-size: 14px;
+    color:#334155;
+    line-height: 1.4;
+}
+
+/* Actions section */
+.pasteActions {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 12px;
+    align-items: flex-end;
 }
-.pasteDate{
+
+/* Icon buttons */
+.actionButtons {
     display: flex;
-    color: black;
+    gap: 8px;
+}
+
+.actionButtons button {
+    background-color: transparent;
+    border: 1px solid #334155;
+    color: white !important;
+    fill: white !important;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.actionButtons button:hover {
+    background-color: #1e293b;
+    color: #e5e7eb;
+}
+
+/* Remove link underline */
+.actionButtons a {
+    color: white !important;
+    fill: white !important;
+    text-decoration: none;
+}
+
+.actionButtons svg {
+    color: white !important;
+    fill: white !important;
+}
+
+/* Date */
+.pasteDate {
+    display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    gap: 6px;
+    font-size: 13px;
+    color: #334155;
 }
-button{
-    color: black;
-    background-color: #d3ea05;
-}
+

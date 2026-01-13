@@ -12,25 +12,24 @@ export default function ViewPaste() {
     const paste = allPastes.filter((p) => p._id === id)[0];
 
     return(
-        <>
+        <div className="viewPage">
             <div className="ViewContainer">
                 <div className="Viewtitle">
-                <input id="titletext" type="text"
-                placeholder="title"
-                value={paste.title}
-                disabled
-                onChange={(e) => setTitle(e.target.value)} />
+                    <input
+                        id="titletext"
+                        type="text"
+                        value={paste?.title}
+                        disabled
+                    />
+                </div>
 
-                
+                <div className="Viewtext">
+                    <textarea
+                        value={paste?.content}
+                        disabled
+                    />
+                </div>
             </div>
-            <div className="Viewtext">
-                <textarea 
-                 value={paste.content}
-                 disabled
-                 placeholder="Code here..."
-                 onChange={(e) => setValue(e.target.value)}></textarea>
-            </div>
-            </div>
-        </>
+        </div>
     )
 }
