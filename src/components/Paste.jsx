@@ -52,7 +52,9 @@ export default function Pastes() {
                                 <div className="pastelist" key={paste._id}>
                                     <div className="pasteTitle">
                                         <h2>{paste.title}</h2>
-                                        <span>
+
+                                        
+                                        <span>{paste.content}
                                             {paste.content.split(" ").slice(0, 10).join(" ")}
                                             {paste.content.split(" ").length > 10 ? "..." : ""}
                                         </span>
