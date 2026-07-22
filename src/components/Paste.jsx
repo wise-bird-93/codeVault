@@ -1,25 +1,50 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+    getAllPastes,
+    deletePaste,
+} from "../services/pasteService";
 import './Paste.css';
-import { removeFromPastes } from "../Redux/PasteSlice";
+
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import {FaEdit,FaShareAlt,FaEye,FaTrash,FaCopy,FaCalendarAlt,FaSearch} from "react-icons/fa";
 
 export default function Pastes() {
-    const pastes = useSelector((state) => state.paste.pastes);
-    const dispatch = useDispatch();
+    const [pastes, setPastes] = useState([]);
     const [searchTerm,setSearchTerm] = useState('');
     const [open, setOpen] = useState(false);
 
+    useEffect(() => {
+        fetchPastes();
+    }, []);
+
+    const fetchPastes = async () => {
+        try {
+            const res = await getAllPastes();
+            setPastes(res.data.data);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to fetch pastes");
+        }
+    };
 
     const filteredData = pastes.filter(
         (pastes) => pastes.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    function handleDelete(pasteId) {
-        dispatch(removeFromPastes(pasteId));
-    }
+    const handleDelete = async (pasteId) => {
+        try {
+            await deletePaste(pasteId);
+
+            toast.success("Paste deleted");
+
+            fetchPastes();
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to delete");
+        }
+    };
 
     function handleShare (paste) {
         const link = `${window.location.origin}/pastes/${paste._id}`;
@@ -54,9 +79,9 @@ export default function Pastes() {
                                         <h2>{paste.title}</h2>
 
                                         
-                                        <span>{paste.content}
-                                            {paste.content.split(" ").slice(0, 10).join(" ")}
-                                            {paste.content.split(" ").length > 10 ? "..." : ""}
+                                        <span>{paste.code}
+                                            {paste.code.split(" ").slice(0, 10).join(" ")}
+                                            {paste.code.split(" ").length > 10 ? "..." : ""}
                                         </span>
                                     </div>
                                     <div className="pasteactions">
@@ -77,7 +102,7 @@ export default function Pastes() {
                                         {/* Copy */}
                                         <button 
                                             onClick={() => {
-                                                navigator.clipboard.writeText(paste?.content)
+                                                navigator.clipboard.writeText(paste?.code)
                                                 toast.success("Copied to clipboard")
                                         }}>
                                             <FaCopy className="text-lg" />

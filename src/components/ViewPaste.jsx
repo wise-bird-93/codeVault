@@ -1,35 +1,47 @@
-import React, { useEffect, useState } from "react"
-import { useParams, useSearchParams } from "react-router-dom"
-import "./ViewPaste.css"
-import {useDispatch, useSelector} from 'react-redux'
-import { addToPastes, updateToPastes } from "../Redux/PasteSlice"
-import toast from "react-hot-toast"
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import "./ViewPaste.css";
+import { getPasteById } from "../services/pasteService";
+import toast from "react-hot-toast";
 
 export default function ViewPaste() {
-    
-    const {id} = useParams();
-    const allPastes = useSelector((state) => state.paste.pastes);
-    const paste = allPastes.filter((p) => p._id === id)[0];
+    const { id } = useParams();
 
-    return(
+    const [paste, setPaste] = useState(null);
+
+    useEffect(() => {
+        const fetchPaste = async () => {
+            try {
+                const res = await getPasteById(id);
+                setPaste(res.data.data);
+            } catch (error) {
+                console.error(error);
+                toast.error("Failed to load paste");
+            }
+        };
+
+        fetchPaste();
+    }, [id]);
+
+    return (
         <div className="viewPage">
             <div className="ViewContainer">
                 <div className="Viewtitle">
                     <input
                         id="titletext"
                         type="text"
-                        value={paste?.title}
+                        value={paste?.title || ""}
                         disabled
                     />
                 </div>
 
                 <div className="Viewtext">
                     <textarea
-                        value={paste?.content}
+                        value={paste?.code || ""}
                         disabled
                     />
                 </div>
             </div>
         </div>
-    )
+    );
 }

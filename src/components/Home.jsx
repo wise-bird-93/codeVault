@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import "./Home.css"
-import {useDispatch, useSelector} from 'react-redux'
-import { addToPastes, updateToPastes } from "../Redux/PasteSlice"
+import { createPaste, updatePaste, getPasteById } from "../services/pasteService";
 import toast from "react-hot-toast"
 
 export default function Home() {
@@ -10,42 +9,54 @@ export default function Home() {
     const [value,setValue] = useState("")
     const [searchParams,setSearchParams] = useSearchParams();
     const pasteId = searchParams.get("pasteId");
-    const dispatch = useDispatch()
-    const allPastes =   useSelector((state) => state.paste.pastes);
+    
 
     useEffect(() => {
-        if(pasteId){
-            const paste = allPastes.find((p) => p._id === pasteId);
-            if(paste){
-                setTitle(paste.title);
-                console.log(paste.title);
-                setValue(paste.content);
+        const fetchPaste = async () => {
+            if (!pasteId) return;
+
+            try {
+                const res = await getPasteById(pasteId);
+
+                setTitle(res.data.data.title);
+                setValue(res.data.data.code);
+            } catch (error) {
+                console.error(error);
+                toast.error("Failed to load paste");
             }
-        }
-    },[pasteId,allPastes])
+        };
 
-    function createPaste() {
-        const paste = {
-            title:title,
-            content: value,
-            _id: pasteId || Date.now().toString(36),
-            createdAt: new Date().toISOString(),
-        }
+        fetchPaste();
+    }, [pasteId]);
 
-        
+    const handleSubmit = async () => {
+        try {
+            if (pasteId) {
+                await updatePaste(pasteId, {
+                    title,
+                    code: value,
+                    language: "text",
+                });
 
-        if(pasteId){
-            dispatch(updateToPastes(paste));
-        }
-        else{
-            dispatch(addToPastes(paste));
-        }
+                toast.success("Paste updated successfully");
+            } else {
+                await createPaste({
+                    title,
+                    code: value,
+                    language: "text",
+                });
 
-        setTitle('')
-        setValue('')
-        setSearchParams({})
-        toast("Paste created successfully")
-    }
+                toast.success("Paste created successfully");
+            }
+
+            setTitle("");
+            setValue("");
+            setSearchParams({});
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong");
+        }
+    };
     
     return(
         <>
@@ -57,7 +68,7 @@ export default function Home() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} />
 
-                        <button onClick={createPaste}>
+                        <button onClick={handleSubmit}>
                             {
                                 pasteId ? "Update" : "Create"
                             }
