@@ -10,36 +10,35 @@ import ViewPaste from './components/ViewPaste'
 const router = createBrowserRouter(
   [
     {
-      path:'/',
-      element:
-      <div>
-        <NavBar />
-        <Home />
-      </div>,
+      path: "/",
+      element: (
+        <div>
+          <NavBar />
+          <Home />
+        </div>
+      ),
       errorElement: <ErrorPage />,
     },
     {
-      path:'/pastes',
-      element:
-      <div>
-        <NavBar />
-        <Pastes />
-        
-      </div>
+      path: "/pastes",
+      element: (
+        <div>
+          <NavBar />
+          <Pastes />
+        </div>
+      ),
     },
     {
-      path:'/pastes/:id',
-      element:
-      <div>
-        <NavBar />
-        <ViewPaste />
-      </div>
-    }
-  ],
-  {
-    basename: "/codeVault", 
-  }
-)
+      path: "/pastes/:id",
+      element: (
+        <div>
+          <NavBar />
+          <ViewPaste />
+        </div>
+      ),
+    },
+  ]
+);
 
 function App() {
   
